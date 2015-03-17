@@ -1,0 +1,31 @@
+Proceso precioeimpuesto
+	escribir "ingrese el precio, cantidad"
+	leer a,b
+	c=a*b
+	escribir "la cantidad a pagar es:" c
+	si c<5
+		escribir "no se paga impuesto"
+	sino 
+		escribir "el impuesto a pagar es:" c*0.03
+		
+	FinSi
+	escribir "ingrese el precio, cantidad"
+	leer d,e
+	f=d*e
+	escribir "la cantidad a pagar es:" f
+	si f<5
+		escribir "no se paga impuesto"
+	sino 
+		escribir "el impuesto a pagar es:" f*0.03
+		
+	FinSi
+	m=c+f
+	escribir "el precio total a pagar es:" m
+	n=m*0.03
+	si m<5
+		escribir "no se paga impuesto"
+	sino 
+		escribir "el impuesto total a pagar es:" m*0.03
+		
+	FinSi
+FinProceso
