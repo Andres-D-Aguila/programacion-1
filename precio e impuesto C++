@@ -1,0 +1,38 @@
+// impuesto y precio.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+
+int main()
+{
+	int a,b,c,d,e,f,g;
+	cout <<"ingrese el precio ";
+	cin >>a;
+	cout <<"ingrese la cantidad ";
+	cin >>b;
+	c=a*b;
+	cout <<"el precio a pagar es "<<c;
+	if (c<5)
+		cout <<",no se paga impuesto";
+	else 
+		cout <<" y el impuesto a pagar es: "<<c*0.03<<endl;
+	cout <<"ingrese el precio ";
+	cin >>d;
+	cout <<"ingrese la cantidad ";
+	cin >>e;
+	f=d*e;
+	cout <<"el precio a pagar es "<<f;
+	if (f<5)
+		cout <<",no se paga impuesto";
+	else 
+		cout <<" y el impuesto a pagar es: "<<f*0.03<<endl;
+	g=c+f;
+	cout <<"el precio total a pagar es: "<<g;
+	cout <<" y el impuesto total a pagar es: "<<g*0.03;
+	getch();
+	return(0);
+}
