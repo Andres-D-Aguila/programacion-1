@@ -1,0 +1,57 @@
+PSeInt
+
+Proceso notafinal
+	escribir "ingrese el numero de alumnos: ";
+	leer n;
+	Para x<-1 Hasta n Con Paso 1 Hacer
+		
+		escribir "ingrese la nota practica: ";
+		leer a;
+		escribir "ingrese la nota del parcial 1,2 y 3: ";
+		leer b,c,d;
+		escribir "ingrese la nota del examen final: ";
+		leer e;
+		f<-a*0.2;
+		g<-((b+c+d)/3)*0.4;
+		h<-e*0.4;
+		i<-f+g+h;
+		escribir "la nota final es: ", i;
+	Fin Para
+FinProceso
+
+
+C++
+
+// notafinal.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+using namespace std;
+
+void main()
+{
+	float a,b,c,d,e,f,g,h,i,n,x;
+	cout<<"ingrese el numero de alumnos: ";
+	cin>>n;
+	for(x=1;x<=n;x++)
+	{
+		cout<<"ingrese la nota practica: ";
+	    cin>>a;
+		cout<<"ingrese la nota del parcial 1: ";
+		cin>>b;
+		cout<<"ingrese la nota del parcial 2: ";
+		cin>>c;
+		cout<<"ingrese la nota del parcial 3: ";
+		cin>>d;
+		cout<<"ingrese la nota del examen final: ";
+		cin>>e;
+		f=a*0.2;
+		g=((b+c+d)/3)*0.4;
+		h=e*0.4;
+		i=f+g+h;
+		cout<<"la nota final es: "<<i<<endl;
+	}
+	getch();
+}
