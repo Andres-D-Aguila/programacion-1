@@ -1,0 +1,51 @@
+PSeInt
+
+Proceso salariobruto
+	escribir "ingrese el numero de empleados: ";
+	leer n;
+	Para x<-1 Hasta n Con Paso 1 Hacer
+		escribir "ingrese el precio por hora: ";
+		leer a
+		escribir "ingrese el numero de horas trabajadas: ";
+		leer b
+		c<-a*b
+		escribir "el salario bruto es: ",c
+		d<-0.13
+		e<-c*d
+		f<-c-e
+		escribir "el salio neto es: ",f
+	Fin Para
+FinProceso
+
+
+
+C++
+
+// salario bruto.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+using namespace std;
+
+void main()
+{
+	float a,b,c,d,e,f,x,n;
+	cout<<"ingrese el numero de empleados: ";
+	cin>>n;
+	for(x=1;x<=n;x++)
+	{
+		cout<<"ingrese el precio por hora: ";
+	    cin>>a;
+		cout<<"ingrese el numero de horas trabajadas: ";
+		cin>>b;
+		c=a*b;
+		cout<<"el salario bruto es: "<<c<<endl;
+		d=0.13;
+		e=c*d;
+		f=c-e;
+		cout<<"el salario neto es: "<<f<<endl;
+	}
+	getch();
+}
