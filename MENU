@@ -1,0 +1,70 @@
+// MENU.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include "stdlib.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+void main()
+{
+	int a,b,c,d,e,f,g,h,i,j,k,l,m,n,opcion;
+	do {
+		cout<<"MENU"<<endl;
+		cout<<"1) area de un cuadrado"<<endl;
+		cout<<"2) area de una circunferencia"<<endl;
+		cout<<"3) nota final"<<endl;
+		cout<<"4) valor absoluto"<<endl;
+		   cout<<"0) salir"<<endl;
+		cout<<"eliga una opcion: ";
+		cin>> opcion;
+		switch (opcion) {
+		case 1: {
+			cout<<"ingrese un tamaño del lado: ";
+			cin>>a;
+			b=a*a;
+			cout<<"el area es: "<<b<<endl;
+			break;
+				}
+		case 2: {
+			cout<<"ingrese el radio: ";
+			cin>>c;
+			d=c*c*3.1415;
+			cout<<"el area es: "<<d<<endl;
+			break;
+				}
+		case 3: {
+			cout<<"ingrese la nota practica: ";
+			cin>>e;
+			cout<<"ingrese la nota del parcial 1: ";
+			cin>>f;
+			cout<<"ingrese la nota del parcial 2: ";
+			cin>>g,
+			cout<<"ingrese la nota del parcial 3: ";
+			cin>>h;
+			cout<<"ingrese la nota del examen final: ";
+			cin>>i;
+			j=e*0.2;
+			k=((f+g+h)/3)*0.4;
+			l=i*0.4;
+			m=j+k+l;
+			cout<<"la nota final es: "<<m<<endl;
+			break;
+				}
+		case 4: {
+			cout<<"ingrese un numero: ";
+			cin>>n;
+				if (n<0)
+					n=(-1)*n;
+			cout<<"el valor absoluto es: "<<n<<endl;
+			break;
+				}
+		case 0: cout<<"salir"; break;
+		default: cout<<"opcion invalida"<<endl;
+		}
+		getch();
+		system("cls");
+	} while (opcion!=0);
+	getch();
+}
