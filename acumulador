@@ -1,0 +1,21 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+void main()
+{
+int a,b,c,d;
+a=1;
+b=0;
+cout<<"ingrese el numero de alumnos: "<<endl;
+cin>>d;
+while (a<=d){
+	cout<<"ingrese el el promedio del alumno: "<<endl;
+	cin>>c;
+	a=a+1;
+	b=b+c;
+}
+cout<<"el promedio del curso es: "<<(b/d)<<endl;
+getch ();
+}
