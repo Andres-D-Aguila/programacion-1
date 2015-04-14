@@ -1,0 +1,30 @@
+// serie.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "math.h"
+
+using namespace std;
+
+
+int main ()
+{
+	float fac,signo=1,n,x,i=1,s=0;
+	cout<<"ingrese un numero: ";
+	cin>>x;
+	cout<<"ingrese el numero de repeticiones de la serie: ";
+	cin>>n;
+	fac=1;
+	while (i<=n)
+	{
+		fac=fac*i;
+		s=s+(signo*pow(x,i)/fac);
+		i++;
+		signo=signo*(-1);
+	}
+	cout<<"el resultado de la serie es: "<<s;
+	getch();
+	return 0;
+}
