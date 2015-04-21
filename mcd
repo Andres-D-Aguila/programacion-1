@@ -1,0 +1,29 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+void main ()
+{
+int a,b,c,d,f=1,g=2;
+cout<<"ingrese el primer numero: ";
+cin>>a;
+cout<<"ingrese el segundo numero: ";
+cin>>b;
+if (a<b)
+   {c=a;
+   d=b;}
+else 
+   {c=b;
+   d=a;}
+do {
+	if (c%g==0 && d%g==0)
+	{f=f*g;
+	c=c/g;
+	d=d/g;}
+	else g++;}
+while (g<=c);
+cout<<"el MCD es: "<<f;
+getch();
+}
+
