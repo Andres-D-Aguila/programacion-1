@@ -1,3 +1,4 @@
+          C++
 #include "stdafx.h"
 #include <iostream>
 #include "conio.h"
@@ -26,4 +27,33 @@ while (g<=c);
 cout<<"el MCD es: "<<f;
 getch();
 }
+
+
+            PSeInt
+Proceso MCD
+	escribir ("ingrese el primer numero: ");
+	leer a;
+	escribir ("ingrese el segundo numero: ");
+	leer b;
+	si a>b entonces
+		c<-a
+		d<-b
+	Sino
+		c<-b
+		d<-a
+	FinSi
+	e<-1
+	f<-2
+	Repetir
+		si c%f=0 && d%f=0
+			Entonces
+			e<-e*f
+			c<-c/f
+			d<-d/f
+		Sino
+			f<-f+1
+		FinSi
+	Hasta Que f>c
+	escribir ("el MCD es: "),e;
+FinProceso
 
