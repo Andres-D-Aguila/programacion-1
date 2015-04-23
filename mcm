@@ -1,0 +1,26 @@
+// mcm.cpp: define el punto de entrada de la aplicación de consola.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+void main ()
+{
+int a,b,c,d;
+cout<<"ingrese el primer numero: ";
+cin>>a;
+cout<<"ingrese el segundo numero: ";
+cin>>b;
+if (a<b)
+   {c=a;
+   d=b;}
+else 
+   {c=b;
+   d=a;}
+	while ((d%a!=0) || (d%b!=0))
+		d++;
+cout<<"el MCM es: "<<d;
+getch();
+}
