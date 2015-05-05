@@ -1,0 +1,32 @@
+// funciones 9.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+
+float poten(float base, int exponente);
+
+
+void main()
+{
+	int x,d;
+    cout<<"ingrese un numero binario: ";
+	cin>>x;
+	while (x>0)
+	{d=x%10;
+	x=x/10;
+	cout<<d<<endl;}
+	getch();
+}
+
+	float poten(float base, int exponente)
+{
+float x;
+x=1;
+for (int i=1;i<=exponente;i++)
+x=x*base;
+return x;
+}
