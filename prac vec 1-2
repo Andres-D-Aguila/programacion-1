@@ -1,0 +1,46 @@
+MAYOR
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define MAX 999
+
+using namespace std;
+
+void main()
+{
+	int vector[MAX], mayor=0, n, i;
+	cout<<"ingrese el numero de valores : ";
+	cin>>n;
+	for (i=0; i<n; i++)
+	{cout<<"ingrese el valor numero "<<i<<": ";
+	cin>>vector[i];}
+	for (i=0; i<n; i++)
+	{if (mayor<vector[i])
+	mayor=vector[i];}
+	cout<<"el mayor es: "<<mayor;
+	getch();
+}
+
+MENOR
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define MAX 999
+
+using namespace std;
+
+void main()
+{
+	int vector[MAX], menor=99999, n, i;
+	cout<<"ingrese el numero de valores : ";
+	cin>>n;
+	for (i=0; i<n; i++)
+	{cout<<"ingrese el valor numero "<<i<<": ";
+	cin>>vector[i];}
+	for (i=0; i<n; i++)
+	{if (menor>vector[i])
+	menor=vector[i];}
+	cout<<"el menor es: "<<menor;
+	getch();
+}
+
