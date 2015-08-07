@@ -1,0 +1,104 @@
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+int cantDig(int n){
+	int c=0;
+	while(n>0){
+		n=n/10;
+		c++;
+	}
+	return (c);
+}
+
+int digImp(int n){
+	int c=0,d;
+	while(n>0){
+		d=n%10;
+		if(d%2!=0){
+			c++;
+		}
+		n=n/10;
+	}
+	return (c);
+}
+
+int sumarDig(int n){
+	int s=0,d;
+	while(n>0){
+		d=n%10;
+		s=s+d;
+		n=n/10;
+		}
+	return (s);
+}
+
+int invertir(int n){
+	int c=0,d;
+	while(n>0){
+		d=n%10;
+		c=(c*10)+d;
+		n=n/10;
+	}
+	return (c);
+}
+
+int quitarPares(int n){
+	int c=0,d;
+	while(n>0){
+		d=n%10;
+		if(d%2!=0){
+			c=(c*10)+d;
+		}
+		n=n/10;
+	}
+	return (invertir(c));
+}
+
+int ordenAscendente(int n){
+	int c=0,d,e;
+	e=invertir(n)
+	while(e>0){
+		d=e%10;
+		if((n/10)>d){
+			c=(c*10)+d;
+		}
+		n=n/10;
+	}
+
+void main()
+{
+	int numero,r,opcion;
+	cout<<"introduzca un numero natural: ";
+	cin>>numero;
+	do{
+		cout<<endl<<"\n	  **** MENU ****";
+		cout<<endl<<"1.- CONTAR DIGITOS";
+		cout<<endl<<"2.- CONTAR SOLO DIGITOS IMPARES";
+		cout<<endl<<"3.- SUMAR DIGITOS";
+		cout<<endl<<"4.- INVERTIR";
+		cout<<endl<<"5.- ELIMINAR DIGITOS PARES";
+		cout<<endl<<"0.- SALIR";
+		cout<<endl<<"seleccione opcion: ";
+		cin>>opcion;
+		switch(opcion){
+		case 1: r=cantDig(numero);
+			cout<<"la cantidad de digitos es: "<<r;
+			break;
+		case 2: r=digImp(numero);
+			cout<<"la cantidad de digitos impares es: "<<r;
+			break;
+		case 3: r=sumarDig(numero);
+			cout<<"la suma de digitos es: "<<r;
+			break;
+		case 4: r=invertir(numero);
+			cout<<"el numero invertido es: "<<r;
+			break;
+		case 5: r=quitarPares(numero);
+			cout<<"el numero sin pares es: "<<r;
+			break;
+		
+		}
+	}while(opcion!=0);
+	getch();
+}
