@@ -1,0 +1,97 @@
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+bool verifPrimo (int n){
+	bool k=true;
+	int i;
+	for (i=2;i<n;i++){
+		if(n%i==0){
+			k= false;
+		}
+	}
+	return (k);
+}
+
+int invertir (int n){
+	int m=0,d;
+	while(n>0){
+		d=n%10;
+		m=m*10+d;
+		n=n/10;
+	}
+	return (m);
+}
+
+int soloPrimos (int n){
+	int m=0, d;
+	while(n>0){
+		d=n%10;
+		if (verifPrimo(d)==true){
+			m=m*10+d;
+		}
+		n=n/10;
+	}
+	return(invertir(m));
+}
+
+int cantDig(int n){
+int c=0;
+while(n>0){
+n=n/10;
+c++;
+}
+return (c);
+}
+
+
+void copaMarica(int n){
+	int a,b,c,i=0,j=0;
+	n=invertir(n),
+	a=b=cantDig(n);
+	while (i<a){
+		c=n%10;
+		while(j<b){
+			cout<<c;
+			j++;
+		}
+		b--;
+		j=0;
+		i++;
+		cout<< endl;
+		n=n/10;
+	}
+}
+
+void copaMarica2(int n){
+	int a,b,c,i=0,j=0;
+	a=b=cantDig(n);
+	while (i<a){
+		c=n%10;
+		while(j<b){
+			cout<<c;
+			j++;
+		}
+		b--;
+		j=0;
+		i++;
+		cout<< endl;
+		n=n/10;
+	}
+}
+
+void copaGay(int n){
+	int a,b,c;
+	a=cantDig(n);
+	if(a%2==0)
+		a=a+1;
+
+
+void main(){
+	int n;
+	cout<<"introdusca un numero: ";
+	cin>>n;
+	copaMarica (n);
+	copaMarica2 (n);
+	getch();
+}
