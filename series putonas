@@ -1,0 +1,95 @@
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+bool verifPrimo (int n){
+bool k=true;
+int i;
+for (i=2;i<n;i++){
+	if(n%i==0){
+	k= false;
+	}
+}
+return (k);
+}
+
+int primo(int n){
+	int a=0,b=0;
+	while(a<n){
+		b++;
+		if(verifPrimo(b)==true)
+		{
+			a++;
+		}
+	}
+	return(b);
+}
+
+int obtenNPrimo(int n){
+	int a=0,b=0;
+	while(b<n){
+		a++;
+		if(verifPrimo(a)==true){
+			b++;
+		}
+	}
+	return(a);
+}
+
+void secuencia(int n){
+	int i=1,a=n/2,b,k=0;
+	for(b=0;b<n;b++){
+		if(k==0){
+			cout<<i<<"  ";
+			i=i+2;
+			k=1;
+		}
+		else{
+				cout<<primo(a)<<"  ";
+				a--;
+				k=0;
+		}
+	}
+}
+
+void copaselacome(int n){
+	int cn=1,ce=n-1,cm=1,i,j;
+		while(cn<=n){
+			for(i=1;i<=ce;i++){
+				cout<<" ";
+			}
+			ce--;
+			for(j=1;j<=cm;j++){
+				cout<<cn;
+			}
+			cm++;
+			cn++;
+			cout<<endl;
+		}
+}
+
+void copaselacome2(int n){
+	int cn=1,ce=n-1,cm=1,i,j;
+		while(cn<=n){
+			for(i=1;i<=ce;i++){
+				cout<<" ";
+			}
+			ce--;
+			for(j=1;j<=cm;j++){
+				cout<<cn;
+				cout<<cn;
+			}
+			cm++;
+			cn++;
+			cout<<endl;
+		}
+}
+
+void main(){
+	int n,r;
+	cout<<"ingrese un numero natural: ";
+	cin>>n;
+	copaselacome2(n);
+	getch();
+}
