@@ -1,0 +1,87 @@
+#include <iostream>
+#include <conio.h>
+#define MAX 100
+
+using namespace std;
+
+void cargar( int vec[] , int n)
+{
+	int i;
+	cout<<"INTRODUCIR ELEMENTOS DEL VECTOR"<<endl;
+	for(i=0;i<n;i++)
+	{
+		cout<<"introducir vec["<<i<<"]: ";
+		cin>>vec[i];
+	}
+}
+
+void mostrar( int vec[] , int n)
+{
+	int i;
+	cout<<"LOS DATOS DEL VECTOR SON: "<<endl;
+	for(i=0;i<n;i++)
+	{
+		cout<<"vec["<<i<<"] :"<<vec[i];
+		cout<<endl;
+	}
+}
+
+bool verifPrimo (int n){
+	bool k=true;
+	int i;
+	for (i=2;i<n;i++){
+		if(n%i==0){
+			k= false;
+		}
+	}
+	return (k);
+}
+
+void eliminarimpYprim(int vec[], int &n)
+{
+	int i,j;
+	for(i=0;i<n;i++)
+	{	
+		if ((vec[i]%2!=0)||(verifPrimo(vec[i])==true))
+		{	
+			for(j=i;j<n-1;j++)
+			{
+				vec[j]=vec[j+1];
+			}
+			i--;
+			n--;
+		}
+	}
+}
+
+void secuencia(int vec[], int n)
+{
+	int i,c=1,k=0,indDer=n/2,indIzq=(n/2)-1,ind=0;
+	for(i=0;i<n;i++)
+	{
+		if(k==0)
+		{
+			ind=indDer;
+			indDer++;
+			k=1;
+		}
+		else
+		{
+			ind=indIzq;
+			indIzq--;
+			k=0;
+		}
+		vec[ind]=c;
+		c++;
+	}
+}
+
+void main()
+{
+	int n , vec[MAX];
+	cout<<"introduzca el tamaño del vector: ";
+	cin>>n;
+	secuencia(vec, n);
+	mostrar(vec, n);
+	getch();
+}
