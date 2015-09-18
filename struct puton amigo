@@ -1,0 +1,90 @@
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+struct amigo {
+	char nombre[30];
+	int edad;
+	char sexo;
+};
+
+struct regamigo {
+	char nombre[30];
+	int edad;
+	char sexo;
+};
+
+void cargar (amigo vec[], int n)
+{
+	int i;
+	for(i=1;i<=n;i++)
+	{
+		cout<<"nombre amigo "<<i<<"? : ";
+		do{
+			gets (vec[i].nombre);
+		} while(strlen(vec[i].nombre)==0);
+		cout<<"edad amigo "<<i<<"? : ";
+		cin>> vec[i].edad;
+		cout<<"sexo <F/M> amigo "<<i<<"? : ";
+		cin>> vec[i].sexo;
+	}
+}
+
+void mostrar (amigo vec[], int n)
+{
+	int i;
+	cout<<"los amigos son: ";
+	for(i=1;i<=n;i++)
+	{
+		cout<<endl<<vec[i].nombre<<"  "<<vec[i].edad<<"  "<<vec[i].sexo;
+	}
+}
+
+int mayor (amigo vec[], int n)
+{
+	int i, may=vec[0].edad;
+	for (i=1;i<=n;i++)
+	{
+		if(vec[i].edad>may)
+		{
+			may=vec[i].edad;
+		}
+	}
+	return(may);
+}
+
+void eliminaramigomayor(amigo vec[], int &n)
+{
+	int i,k,may=mayor(vec,n);
+	for(i=0;i<n;i++)
+	{
+		if(vec[i].edad==may)
+		{
+			for(k=i;k<n-1;k++)
+			{
+				vec[k]=vec[k+1];
+			}
+			i--;
+			n--;
+		}
+	}
+}
+
+void ordenar(amigo vec[], int n)
+{
+
+
+void main ()
+{
+	int n,may;
+	amigo vec[20];
+	cout<<"ingrese el numero de amigos: ";
+	cin>>n;
+	cargar (vec, n);
+	mostrar (vec, n);
+	cout<<endl;
+	eliminaramigomayor(vec, n);
+	mostrar (vec, n);
+	getch();
+}
