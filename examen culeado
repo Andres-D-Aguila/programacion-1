@@ -1,0 +1,67 @@
+#include <conio.h>
+#include <iostream>
+#define max 100
+
+using namespace std;
+
+struct vecdevec
+{
+	int subvec[max];
+	int n;
+};
+
+void cargar (vecdevec vecdevec[max], int n)
+{
+	int i,j;
+	for (i=0;i<n;i++)
+	{
+		cout<<"ingrese el numero de elementos del sub-vector "<<i<<" : ";
+		cin>>vecdevec[i].n;
+		for (j=0;j<vecdevec[i].n;j++)
+		{
+			cout<<"ingrese el elemento "<<j<<" : ";
+			cin>>vecdevec[i].subvec[j];
+		}
+	}
+}
+
+void mostrar (vecdevec vecdevec[max], int n)
+{
+	int i,j;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<vecdevec[i].n;j++)
+		{
+			cout<<vecdevec[i].subvec[j]<<" ";
+		}
+		cout<<endl;
+	}
+}
+
+bool verifprimo (int n)
+{
+	int i;
+	for (i=2;i<n;i++)
+	{
+		if(((n%i)!=0))
+		{
+			return true;
+		}
+		else 
+			return false;
+	}
+}
+
+void eliminarprimos(vecdevec vecdevec[max], in
+
+
+void main()
+{
+	vecdevec subvec[max];
+	int n;
+	cout<<"ingrese el numero de elementos del vector principal: ";
+	cin>>n;
+	cargar (subvec, n);
+	mostrar (subvec, n);
+	getch();
+}
