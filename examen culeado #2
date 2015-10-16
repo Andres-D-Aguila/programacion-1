@@ -1,0 +1,73 @@
+#include <iostream>
+#include <conio.h>
+#define max 30
+using namespace std;
+struct matdevec{
+	int subvec[30];
+	int nvec;
+};
+
+bool verifPrimo(n)
+{
+	int i;
+	bool k=true;
+	for(i=2;i<n;i++)
+		if(n%i==0)
+		{
+			k=false;
+		}
+	return (k);
+}
+void cargarMatriz(matdevec mat[max][max], int n, int m)
+{
+	int i,j,k,x,y;
+	for (i=0;i<n;i++)
+	{
+		for (j=0;j<m;j++)
+		{	
+			cout<<"ingrese el numero de elementos del vector ["<<i<<"] ["<<j<<"] : ";
+			cin>>mat[i][j].nvec;
+			for (k=0;k<mat[i][j].nvec;k++)
+			{	
+				cout<<"ingrese el elemento ["<<k<<"] del vector : ";
+				cin>>y;
+				mat[i][j].subvec[k]=y;
+			}
+		}
+	}
+}
+
+void mostrarMatriz(matdevec mat[max][max], int n, int m)
+{
+	int i,j,k,x; 
+	for (i=0;i<n;i++)
+	{	for (j=0;j<m;j++)
+		{	for (k=0;k<mat[i][j].nvec;k++)
+			{	cout<<mat[i][j].subvec[k]<<" ";
+			}
+			cout<<" | ";
+		}
+		cout<<endl;
+	}
+}
+
+void cargarVecConPrimos(matdevec mat[max][max], int n, int m, matdevec vec[], int %nvec)
+
+void mostrarVecDeVec(matdevec vec[max], int
+{
+	int i,j;
+	for (i=0;i<vec
+
+
+void main()
+{
+	int n,m, nvec=0;
+	matdevec mat[max][max];
+	cout<<"ingrese numero de filas: ";
+	cin>>n;
+	cout<<"ingrese numero de columnas: ";
+	cin>>m;
+	cargarMatriz(mat,n,m);
+	mostrarMatriz(mat,n,n);
+	getch();
+}
