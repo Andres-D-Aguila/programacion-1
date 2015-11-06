@@ -1,0 +1,208 @@
+#include <iostream>
+#include <stdio.h>
+#include <conio.h>
+using namespace std;
+struct regproducto
+{
+	int idprod;
+	char nombre[30];
+	int precio;
+	int stock;
+};
+
+struct regventa
+{
+	int idvent;
+	char fecha[10];
+	int cant;
+	int idprod;
+};
+
+#define nomarchproducto "producto.dat"
+#define nomarchventa "venta.dat"
+
+void creararchamigo(char nomarchi[])
+{
+	FILE*ptr;
+	ptr=fopen(nomarchi,"wb");
+	fclose(ptr);
+	cout<<"\n\t archivo creado exitosamente!!\n";
+}
+
+void addproducto()
+{
+	FILE*ptr;
+	regproducto reg;
+	cout<<"\nID Producto: ";
+	cin>>reg.idprod;
+	cout<<"\nNombre del producto?: ";
+	do
+	{
+		gets(reg.nombre);
+	}
+	while(strlen(reg.nombre)==0);
+	cout<<"stock?: ";
+	cin>>reg.stock;
+	cout<<"precio unitario?: ";
+	cin>>reg.precio;
+	ptr=fopen(nomarchproducto,"ab");
+	fwrite(&reg,sizeof(reg),1,ptr);
+	fclose(ptr);
+	cout<<"\n\tRegistro creado exitosamente!!\n";
+}
+
+void listadoproducto()
+{
+	FILE*ptr;
+	regproducto reg;
+	int cont=0;
+	ptr=fopen(nomarchproducto,"rb");
+	if(ptr==NULL)
+	{
+		cout<<"\n\tERROR! archivo no existe\n";
+	}
+	else
+	{
+		cout<<endl<<"===============================================================";
+		cout<<endl<<"		****LISTADO DE PRODUCTOS****			";
+		cout<<endl<<"---------------------------------------------------------------";
+		cout<<endl<<"	Nro.	IDprod	Nombre		stock	precio  ";
+		cout<<endl<<"---------------------------------------------------------------";
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr)==false)
+		{
+			cout<<"\n\t"<<cont++ +1<<"	"<<reg.idprod<<"	"<<reg.nombre<<"		"<<reg.stock<<"	"<<reg.precio;
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		cout<<endl<<"===============================================================";
+		fclose(ptr);
+	}
+}
+
+bool verifsiexisteprod(int codprod)
+{
+	bool k=false;
+	FILE*ptr;
+	regproducto reg;
+	int cont=0;
+	ptr=fopen(nomarchproducto,"rb");
+	if(ptr==NULL)
+	{
+		cout<<"\n\tERROR!! archivo no  existe!\n";
+	}
+	else
+	{
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr)==false)
+		{
+			if(reg.idprod==codprod)
+			{
+				k=true;
+			}
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+	}
+	return (k);
+}
+
+
+bool verifstock(int codprod,int cant)
+{
+	bool k=false;
+	FILE*ptr;
+	regproducto reg;
+	int cont=0;
+	ptr=fopen(nomarchproducto,"rb");
+	if(ptr==NULL)
+	{
+		cout<<"\n\tERROR!! archivo no  existe!\n";
+	}
+	else
+	{
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr)==false)
+		{
+			if(reg.idprod==codprod)
+			{
+				if(reg.stock>=cant)
+				{
+					k=true;
+				}
+			}
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+	}
+	return (k);
+}
+
+void addventa()
+{
+	FILE*ptr;
+	regventa reg;
+	cout<<"\nID venta?: ";
+	cin>>reg.idvent;
+	cout<<"\nfecha?: ";
+	do
+	{
+		gets(reg.fecha);
+	}
+	while(strlen(reg.fecha)==0);
+	do
+	{	cout<<"ID del producto vendido? ";
+		cin>>reg.idprod;
+	}
+	while(verifsiexisteprod(reg.idprod)==false);
+	do
+	{
+		cout<<"cantidad vendida?: ";
+		cin>>reg.cant;
+	}
+	while (verifstock(reg.idprod,reg.cant)==false);
+	ptr=fopen(nomarchventa,"ab");
+	fwrite(&reg,sizeof(reg),1,ptr);
+	fclose(ptr);
+	cout<<"\n\tRegistro creado exitosamente!!\n";
+}
+
+
+void listadoventa()
+{
+	FILE*ptr;
+	regventa reg;
+	int cont=0;
+	ptr=fopen(nomarchventa,"rb");
+	if(ptr==NULL)
+	{
+		cout<<"\n\tERROR! archivo no existe\n";
+	}
+	else
+	{
+		cout<<endl<<"==========================================================";
+		cout<<endl<<"		****LISTADO DE VENTAS****			";
+		cout<<endl<<"----------------------------------------------------------";
+		cout<<endl<<"	Nro.	IDventa	 fecha		IDprod	cantidad  ";
+		cout<<endl<<"----------------------------------------------------------";
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr)==false)
+		{
+			cout<<"\n\t"<<cont++ +1<<"	"<<reg.idvent<<"	 "<<reg.fecha<<"	"<<reg.idprod<<"	"<<reg.cant;
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		cout<<endl<<"==========================================================";
+		fclose(ptr);
+	}
+}
+
+void main()
+{
+	//creararchamigo(nomarchproducto);
+	//addproducto();
+	//listadoproducto();
+
+	//creararchamigo(nomarchventa);
+	addventa();
+	listadoventa();
+	getch();
+}
