@@ -1,0 +1,84 @@
+#include <iostream>
+#include <conio.h>
+#include <math.h>
+using namespace std;
+
+int ContarDigitos(int n)
+{
+	int c=0;
+	while(n>0)
+	{
+		n=n/10;
+		c++;
+	}
+	return(c);
+}
+
+int SumarDigitosImpares(int n)
+{
+	int c=0,d;
+	while(n>0)
+	{
+		d=n%10;
+			if(d%2!=0)
+			{
+				c=c+d;
+			}
+		n=n/10;
+	}
+	return(c);
+}
+
+int InvertirDigitos(int n)
+{
+	int a,b=0;
+	while(n>0)
+	{
+		 a=n%10;
+		 b=b*10+a;
+		 n=n/10;
+	}
+	return(b);
+}
+
+void main()
+{
+	int x,r,opcion;
+	do{
+	cout<<"introducir numero natural: ";
+	cin>>x;
+	if(x<=0)
+	{
+		cout<<"NUMERO INCORRECTO"<<endl;
+		cout<<"El numero debe ser entero y mayor de 0!!"<<endl;
+	}
+	}
+	while(x<= 0);
+	do {
+		cout<<endl<<endl<<"MENU";
+		cout<<endl<<"1) Contar Digitos";
+		cout<<endl<<"2) Sumar Digitos Impares";
+		cout<<endl<<"3) Invertir Digitos";
+		cout<<endl<<"0) salir";
+		cout<<endl<<"eliga una opcion: ";
+		cin>> opcion;
+		switch (opcion)
+		{
+		case 1: r=ContarDigitos(x);
+				cout<<"La cantidad de digitos es: "<<r;
+				break;
+		case 2: r=SumarDigitosImpares(x);
+				cout<<"La suma de digitos impares es: "<<r;
+				break;
+		case 3: r=InvertirDigitos(x);
+				cout<<"El numero invertido es : "<<r;
+				break;
+		case 69: cout<<"pedro se la come";
+		}
+	}
+	while(opcion!=0);
+	cout<<"					see ya";
+	getch();
+}
+
+//tarea: un programa que elimine pares
