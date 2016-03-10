@@ -1,0 +1,119 @@
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+void cargar(int vec[], int n)
+{
+	int i;
+	for(i=0;i<n;i++)
+	{
+		cout<<"ingrese el elemento "<<i<<": ";
+		cin>>vec[i];
+	}
+}
+
+void mostrar(int vec[], int n)
+{
+	int i;
+	cout<<"\nEl vector es ----> :\n";
+	for (i=0;i<n;i++)
+	{
+		cout<<endl<<"	elemento ["<<i<<"] --> "<<vec[i];
+	}
+	cout<<endl;
+}
+
+void copiarimp(int veca[], int na, int vecb[], int &nb)
+{
+	int i;
+	nb=0;
+	for(i=0;i<na;i++)
+	{
+		if(veca[i]%2!=0)
+		{
+			vecb[nb]=veca[i];
+			nb++;
+		}
+	}
+}
+
+int frecelem(int vec[], int n, int elem)
+{
+	int i, c=0;
+	for(i=0;i<n;i++)
+	{
+		if(vec[i]==elem)
+		{
+			c++;
+		}
+	}
+	return(c);
+}
+
+bool verifexiste(int vec[], int n, int elem)
+{
+	int i;
+	bool k=false;
+	for(i=0;i<n;i++)
+	{
+		if(vec[i]==elem)
+		{
+			k=true;
+			i=n;
+		}
+	}
+	return(k);
+}
+
+void copiarrep(int veca[], int na, int vecb[], int &nb)
+{
+	int i;
+	nb=0;
+	for(i=0;i<na;i++)
+	{
+		if((frecelem(veca,na,veca[i])>1) && (verifexiste(vecb,nb,veca[i])==false))
+		{
+			vecb[nb]=veca[i];
+			nb++;
+		}
+	}
+}
+
+void copiarord(int veca[], int na, int vecb[], int &nb)
+{
+	int i, may=veca[0];
+	for(i=0;i<na;i++)
+	{
+		if(veca[i]>=may)
+		{
+			vecb[nb]=veca[i];
+			may=veca[i];
+			nb++;
+		}
+	}
+}
+
+//crear una funcion que muestre la frecuencia de repeticion de cada elemento con las siguientes restricciones:
+//1-solo se utiliza un vector; 2-no se puede ordenar el vector; 3-no se puede modificar el contenido; 4-no se puede mostrar mas de una vez la frecuencia por elemento
+
+
+void mostrarfrec(int vec[], int n)
+{
+	int i;
+	for(i=0;i<n;i++)
+	{
+
+
+void main()
+{
+	int vec[20], vecb[20], nb, n;
+	cout<<"cuantos elementos?: ";
+	cin>>n;
+	cargar(vec,n);
+	mostrar(vec,n);
+	mostrarfrec(vec, n);
+	//copiarord(vec,n,vecb,nb);
+	//mostrar(vecb,nb);
+	getch();
+}
