@@ -1,0 +1,55 @@
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+void cargar(int veca[], int n)
+{
+	int i,a,c=1,b=0;
+	for (i=0;i<n;i++)
+	{
+		for(a=0;a<c;a++)
+		{
+			veca[b]=c;
+			b++;
+		}
+		c++;
+	}
+}
+
+void invertir(int veca[], int n)
+{
+	int aux, i;
+	for(i=0;i<n/2;i++)
+	{
+		aux=veca[i];
+		veca[i]=veca[n-1-i];
+		veca[n-1-i]=aux;
+	}
+}
+
+void mostrar(int veca[], int n)
+{
+	int i,a,c=1,b=0;
+	for(i=0;i<n;i++)
+	{
+		for(a=0;a<n;a++)
+		{
+			cout<<veca[b];
+			b++;
+		}
+		cout<<endl;
+		
+	}
+
+}
+
+void main()
+{
+	int veca[20], vecb[20], n;
+	cout<<"ingrese numero de terminos: ";
+	cin>>n;
+	cargar(veca,n);
+	mostrar(veca,n);
+	getch();
+}
