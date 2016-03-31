@@ -1,0 +1,98 @@
+#include <iostream>
+#include <conio.h>
+#include <string.h>
+using namespace std;
+
+struct alumno{
+	char nombre[20];
+	char sexo;
+	int nota;
+};
+
+struct materia{
+	char nombre[20];
+	int nroalumnos;
+	alumno vecalum[20];
+};
+
+struct carrera{
+	char nombre[20];
+	int nromaterias;
+	materia vecmat[20];
+};
+
+void cargaralumno(alumno vec[], int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		cout<<"ingrese nombre del alumno: ";
+		do{
+			gets(vec[i].nombre);
+		}
+		while(strlen(vec[i].nombre)==0);
+		cout<<"ingrese sexo del alumno: ";
+		cin>>vec[i].sexo;
+		cout<<"ingrese nota del alumno: ";
+		cin>>vec[i].nota;
+	}
+}
+
+void cargarmateria(materia vec[], int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		cout<<"ingrese nombre de la materia: ";
+		do{
+			gets(vec[i].nombre);
+		}
+		while(strlen(vec[i].nombre)==0);
+		cout<<"ingrese numero de alumnos: ";
+		cin>>vec[i].nroalumnos;
+		cargaralumno(vec[i].vecalum, vec[i].nroalumnos);
+	}
+}
+
+void cargarcarrera(carrera vec[], int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		cout<<"ingrese nombre de la carrera: ";
+		do{
+			gets(vec[i].nombre);
+		}
+		while(strlen(vec[i].nombre)==0);
+
+		cout<<"ingrese numero de materias: ";
+		cin>>vec[i].nromaterias;
+		cargarmateria(vec[i].vecmat, vec[i].nromaterias);
+	}
+}
+
+void main()
+{
+	int i,j,k,pm=0,pc=0,pu=0,nC;
+	carrera vecC[20];
+	cout<<"ingrese el numero de carreras: ";
+	cin>>nC;
+	cargarcarrera(vecC,nC);
+	for(i=0;i<nC;i++)
+	{
+		for(j=0;j<vecC[i].nromaterias;j++)
+		{
+			for(k=0;k<vecC[i].vecmat[j].nroalumnos;k++)
+			{
+				pm=pm+vecC[i].vecmat[j].vecalum[k].nota;
+			}
+			cout<<"el promedio de "<<vecC[i].vecmat[j].nombre<<" es: "<<pm/vecC[i].vecmat[j].nroalumnos;
+			cout<<endl;
+			pc=pc+pm;
+		}
+		cout<<"el promedio de ";
+		puts(vecC[i].nombre);
+		cout<<" es: "<<pc/vecC[i].nromaterias;	
+		cout<<endl;
+		pu=pu+pc;
+	}
+	cout<<"el promedio de la universidad es: "<<pu/nC;
+	getch();
+}
