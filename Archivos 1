@@ -1,0 +1,56 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <string.h>
+
+using namespace std;
+
+struct regamigo
+{
+	char nombre[20];
+	char sexo;
+	int edad;
+	char estado;
+};
+
+void crearArch(char nombre[])
+{
+	FILE *ptr;
+	ptr=fopen(nombre,"wb");
+	fclose(ptr);
+}
+
+void cargar()
+{
+	FILE *ptr;
+	regamigo amigo;
+	do
+	{
+		cout<<"ingrese el nombre completo: ";
+		gets(amigo.nombre);
+	}
+	while(strlen(amigo.nombre)==0);
+	do
+	{
+		cout<<"ingrese el sexo [F/M]: ";
+		cin>>amigo.sexo;
+	}
+	while((amigo.sexo!='F')&&(amigo.sexo!='M'));
+	do
+	{
+		cout<<"ingrese la edad: ";
+		cin>>amigo.edad;
+	}
+	while((amigo.edad<=0)||(amigo.edad>120));
+	amigo.estado='A';
+	ptr=fopen("amigos.dat","ab");
+	fwrite(&amigo,sizeof(amigo),1,ptr);
+	fclose(ptr);
+}
+
+void main()
+{	
+	crearArch("amigos.dat");
+	cargar();
+	getch();
+}
