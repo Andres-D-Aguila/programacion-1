@@ -1,0 +1,175 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <string.h>
+
+using namespace std;
+
+struct regamigo
+{
+	char nombre[20];
+	char sexo;
+	int edad;
+	char estado;
+};
+
+void crearArch(char nombre[])
+{
+	FILE *ptr;
+	ptr=fopen(nombre,"wb");
+	fclose(ptr);
+}
+
+void cargar()
+{
+	FILE *ptr;
+	regamigo amigo;
+	cout<<"	ingrese el nombre completo: ";
+	do
+	{
+		gets(amigo.nombre);
+	}
+	while(strlen(amigo.nombre)==0);
+	do
+	{
+		cout<<"	ingrese el sexo [F/M]: ";
+		cin>>amigo.sexo;
+	}
+	while((amigo.sexo!='F')&&(amigo.sexo!='M'));
+	do
+	{
+		cout<<"	ingrese la edad: ";
+		cin>>amigo.edad;
+	}
+	while((amigo.edad<=0)||(amigo.edad>120));
+	amigo.estado='A';
+	ptr=fopen("amigos.dat","ab");
+	fwrite(&amigo,sizeof(amigo),1,ptr);
+	fclose(ptr);
+}
+
+void mostrar()
+{
+	int c=0;
+	FILE*ptr;
+	regamigo reg;
+	ptr=fopen("amigos.dat","rb");
+	if(ptr!=NULL)
+	{
+		cout<<"\n\n========================================================================";
+		cout<<"\n			** REPORTE DE AMIGOS **";
+		cout<<"\n------------------------------------------------------------------------";
+		cout<<"\nNro Reg.  Nombre	Edad	Sexo";
+		cout<<"\n------------------------------------------------------------------------";
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr)==false)
+		{
+			c++;
+			if (reg.estado=='A')
+			{
+				cout<<endl<<c<<".-	"<<reg.nombre<<"	"<<reg.edad<<"	"<<reg.sexo;
+			}
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+	}else
+	{
+		cout<<"	ARCHIVO NO EXISTENTE!";
+	}
+}
+
+void EdadMayor()
+{
+	int may=0;
+	FILE*ptr;
+	regamigo reg;
+	ptr=fopen("amigos.dat","rb");
+	if(ptr!=NULL)
+	{
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr)==false)
+		{
+			if(reg.estado=='A')
+			{
+				if(reg.edad>may)
+				{
+					may=reg.edad;
+				}
+			}
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		cout<<"\n\n=================================================";
+		cout<<"\n	La edad mayor es ----> "<<may;
+		rewind(ptr);
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr)==false)
+		{
+			if(reg.estado=='A')
+			{
+				if(reg.edad==may)
+				{
+					cout<<"\n	Y pertenece a    ----> "<<reg.nombre;
+				}
+			}
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		cout<<"\n=================================================";
+		fclose(ptr);
+	}else
+	{
+		cout<<"	ARCHIVO NO EXISTENTE!";
+	}
+}
+
+void main()
+{	
+	int op;
+	do{
+		cout<<"			***MENU***		"<<endl;
+		cout<<" 1- Crear Archivo"<<endl;
+		cout<<" 2- Adicionar Amigo"<<endl;
+		cout<<" 3- Mostrar Amigos"<<endl;
+		cout<<" 4- Edad Mayor"<<endl;
+		cout<<" 0- Salir"<<endl;
+		cout<<"Eliga una opcion = "<<endl;
+		cin>>op;
+		switch (op){
+		case 1:
+			{
+				crearArch("amigos.dat");
+				cout<<"	Archivo Creado!";
+				break;
+			}
+		case 2:
+			{
+				cargar();
+				break;
+			}
+		case 3:
+			{
+				mostrar();
+				break;
+			}
+		case 4:
+			{
+				EdadMayor();
+				break;
+			}
+		case 69:
+			{
+				cout<<"================** pedro c la come ** ================";
+				break;
+			}
+		case 0:
+			{
+				cout<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<"			See ya!";
+				break;
+			}
+		default: cout<<"	Opcion Invalida!";
+		}
+		getch();
+		system("cls");
+	} while (op!=0);
+	getch();
+	
+}
