@@ -1,0 +1,518 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <string.h>
+
+using namespace std;
+
+struct regprod
+{
+	int IDprod;
+	char nombre[20];
+	int stock;
+	int precio;
+};
+
+struct regvent
+{
+	int IDvent;
+	char fecha[10];
+	int cantidad;
+	int IDprod;
+};
+
+struct regcomp
+{
+	int IDcomp;
+	char fecha[10];
+	int cantidad;
+	int IDprod;
+};
+
+void crearArch(char nombre[])
+{
+	FILE *ptr;
+	ptr=fopen(nombre,"wb");
+	fclose(ptr);
+}
+
+
+bool verifExistProd(int ip)
+{
+	bool k=false;
+	regprod prod;
+	FILE*ptr;
+	ptr=fopen("productos.dat","rb");
+	fread(&prod,sizeof(prod),1,ptr);
+	while(feof(ptr)==false)
+	{
+		if(prod.IDprod==ip)
+		{
+			k=true;
+		}
+		fread(&prod,sizeof(prod),1,ptr);
+	}
+	fclose(ptr);
+	return(k);
+}
+
+regprod obtprod(int ip)
+{
+	FILE*ptr;
+	regprod prod;
+	ptr=fopen("productos.dat","rb");
+	if(ptr!=NULL)
+	{
+		fread(&prod,sizeof(prod),1,ptr);
+		while((feof(ptr)==false)&&(prod.IDprod!=ip))
+		{
+			fread(&prod,sizeof(prod),1,ptr);
+		}
+		fclose(ptr);
+	}
+	else
+	{
+		cout<<"NO EXISTE EL ARCHIVO!";
+	}
+	return(prod);
+}
+
+
+void aumentarstock(int ID, int cantidad)
+{
+	FILE*ptr;
+	regprod prod;
+	ptr=fopen("productos.dat","r+b");
+	if(ptr!=NULL)
+	{
+		fread(&prod,sizeof(prod),1,ptr);
+		while((feof(ptr)==false)&&(prod.IDprod!=ID))
+		{
+			if(prod.IDprod=ID)
+			{
+				prod.stock=(prod.stock+cantidad);
+				fwrite(&prod,sizeof(prod),1,ptr);
+			}
+			fread(&prod,sizeof(prod),1,ptr);	
+		}
+		fclose(ptr);
+	}
+	else
+	{
+		cout<<"NO EXISTE EL ARCHIVO!";
+	}
+
+}
+
+void disminuirstock(int ID, int cantidad)
+{
+	FILE*ptr;
+	regprod prod;
+	ptr=fopen("productos.dat","r+b");
+	if(ptr!=NULL)
+	{
+		fread(&prod,sizeof(prod),1,ptr);
+		while((feof(ptr)==false)&&(prod.IDprod!=ID))
+		{
+			if(prod.IDprod=ID)
+			{
+				prod.stock=(prod.stock-cantidad);
+				fwrite(&prod,sizeof(prod),1,ptr);
+			}
+			fread(&prod,sizeof(prod),1,ptr);	
+		}
+		fclose(ptr);
+	}
+	else
+	{
+		cout<<"NO EXISTE EL ARCHIVO!";
+	}
+
+}
+
+void cargarcomp()
+{
+	FILE *ptr;
+	regprod prod;
+	regcomp comp;
+	cout<<"ingrese el ID de compra: ";
+	cin>>comp.IDcomp;
+	cout<<"ingrese la fecha de compra: [DD/MM/AAAA] ";
+	do
+	{
+		gets(comp.fecha);
+	}
+	while(strlen(comp.fecha)==0);
+	cout<<"ingrese el ID del producto comprado: ";
+	cin>>comp.IDprod;
+	if(verifExistProd(comp.IDprod)==false)
+	{
+	do
+	{
+		cout<<"EL PRODUCTO NO EXISTE!"<<endl;
+		cout<<"ingrese un ID de producto valido: ";
+		cin>>comp.IDprod;
+	}
+	while(verifExistProd(comp.IDprod)==false);
+	}
+	cout<<"ingrese la cantidad comprada: ";
+	cin>>comp.cantidad;
+	aumentarstock(comp.IDprod, comp.cantidad);
+	ptr=fopen("compras.dat","ab");
+	fwrite(&comp,sizeof(comp),1,ptr);
+	fclose(ptr);
+}
+
+void mostrarcomp()
+{
+	int c=0;
+	FILE*ptr;
+	regcomp comp;
+	ptr=fopen("compras.dat","rb");
+	if(ptr!=NULL)
+	{
+		cout<<"\n\n========================================================================";
+		cout<<"\n			** REGISTRO DE COMPRAS **";
+		cout<<"\n------------------------------------------------------------------------";
+		cout<<"\nID compra  fecha	cantidad	IDprod";
+		cout<<"\n------------------------------------------------------------------------";
+		fread(&comp,sizeof(comp),1,ptr);
+		while(feof(ptr)==false)
+		{
+			c++;
+			cout<<endl<<c<<".-	"<<comp.IDcomp<<"	"<<comp.fecha<<"	"<<comp.cantidad<<" 	"<<comp.IDprod;
+			fread(&comp,sizeof(comp),1,ptr);
+		}
+		fclose(ptr);
+	}else
+	{
+		cout<<"	ARCHIVO NO EXISTENTE!";
+	}
+}
+
+void cargarprod()
+{
+	FILE *ptr;
+	regprod prod;
+	cout<<"ingrese el ID del producto: ";
+	cin>>prod.IDprod;
+	cout<<"ingrese el nombre completo: ";
+	do
+	{
+		gets(prod.nombre);
+	}
+	while(strlen(prod.nombre)==0);
+	cout<<"ingrese el precio del producto: ";
+	cin>>prod.precio;
+	prod.stock=0;
+	ptr=fopen("productos.dat","ab");
+	fwrite(&prod,sizeof(prod),1,ptr);
+	fclose(ptr);
+}
+
+void mostrarprod()
+{
+	int c=0;
+	FILE*ptr;
+	regprod prod;
+	ptr=fopen("productos.dat","rb");
+	if(ptr!=NULL)
+	{
+		cout<<"\n\n========================================================================";
+		cout<<"\n			** REGISTRO DE PRODUCTOS **";
+		cout<<"\n------------------------------------------------------------------------";
+		cout<<"\nID Producto.  Nombre	Stock	Precio";
+		cout<<"\n------------------------------------------------------------------------";
+		fread(&prod,sizeof(prod),1,ptr);
+		while(feof(ptr)==false)
+		{
+			c++;
+			cout<<endl<<c<<".-	"<<prod.IDprod<<"	"<<prod.nombre<<"	"<<prod.stock<<" 	"<<prod.precio;
+			fread(&prod,sizeof(prod),1,ptr);
+		}
+		fclose(ptr);
+	}else
+	{
+		cout<<"	ARCHIVO NO EXISTENTE!";
+	}
+}
+
+void Compras()
+{
+	int op;
+	do{
+		cout<<"			***COMPRAS***		"<<endl;
+		cout<<" 1- Crear Archivo"<<endl;
+		cout<<" 2- Adicionar compra"<<endl;
+		cout<<" 3- Mostrar compras"<<endl;
+		cout<<" 0- Atras"<<endl;
+		cout<<"Eliga una opcion = "<<endl;
+		cin>>op;
+		switch (op){
+		case 1:
+			{
+				crearArch("compras.dat");
+				cout<<"	Archivo Creado!";
+				break;
+			}
+		case 2:
+			{
+				cargarcomp();
+				break;
+			}
+		case 3:
+			{
+				mostrarcomp();
+				break;
+			}
+		case 69:
+			{
+				cout<<"================** pedro c la come ** ================";
+				break;
+			}
+		case 0:
+			{
+				break;
+			}
+		default: cout<<"	Opcion Invalida!";
+		}
+		getch();
+		system("cls");
+	} while (op!=0);
+	getch();
+}
+
+void Productos()
+{
+	int op;
+	do{
+		cout<<"			***PRODUCTOS***		"<<endl;
+		cout<<" 1- Crear Archivo"<<endl;
+		cout<<" 2- Adicionar Producto"<<endl;
+		cout<<" 3- Mostrar Productos"<<endl;
+		cout<<" 0- Atras"<<endl;
+		cout<<"Eliga una opcion = "<<endl;
+		cin>>op;
+		switch (op){
+		case 1:
+			{
+				crearArch("productos.dat");
+				cout<<"	Archivo Creado!";
+				break;
+			}
+		case 2:
+			{
+				cargarprod();
+				break;
+			}
+		case 3:
+			{
+				mostrarprod();
+				break;
+			}
+		case 69:
+			{
+				cout<<"================** pedro c la come ** ================";
+				break;
+			}
+		case 0:
+			{
+				break;
+			}
+		default: cout<<"	Opcion Invalida!";
+		}
+		getch();
+		system("cls");
+	} while (op!=0);
+	getch();
+}
+
+
+
+void mostrarvent()
+{
+	int c=0;
+	FILE*ptr;
+	regvent vent;;
+	ptr=fopen("ventas.dat","rb");
+	if(ptr!=NULL)
+	{
+		cout<<"\n\n========================================================================";
+		cout<<"\n			** REGISTRO DE VENTAS **";
+		cout<<"\n------------------------------------------------------------------------";
+		cout<<"\n	ID Venta  Fecha   Cantidad   ID Producto";
+		cout<<"\n------------------------------------------------------------------------";
+		fread(&vent,sizeof(vent),1,ptr);
+		while(feof(ptr)==false)
+		{
+			c++;
+			cout<<endl<<c<<".-	"<<vent.IDvent<<"	"<<vent.fecha<<"	"<<vent.cantidad<<" 	"<<vent.IDprod;
+			fread(&vent,sizeof(vent),1,ptr);
+		}
+		fclose(ptr);
+	}else
+	{
+		cout<<"	ARCHIVO NO EXISTENTE!";
+	}
+}
+
+
+
+void cargarvent()
+{
+	regvent vent;
+	FILE *ptr;
+	cout<<"ingrese el ID de la venta: ";
+	cin>>vent.IDvent;
+	cout<<"ingrese la fecha de la venta: [DD/MM/AAAA] ";
+	do
+	{
+		gets(vent.fecha);
+	}
+	while(strlen(vent.fecha)==0);
+	cout<<"ingrese el ID del producto vendido: ";
+	cin>>vent.IDprod;
+	if(verifExistProd(vent.IDprod)==false)
+	{
+	do
+	{
+		cout<<"EL PRODUCTO NO EXISTE!"<<endl;
+		cout<<"ingrese un ID de producto valido: ";
+		cin>>vent.IDprod;
+	}
+	while(verifExistProd(vent.IDprod)==false);
+	}
+	cout<<"ingrese la cantidad vendida: ";
+	cin>>vent.cantidad;
+	disminuirstock(vent.IDprod,vent.cantidad);
+	ptr=fopen("ventas.dat","ab");
+	fwrite(&vent,sizeof(vent),1,ptr);
+	fclose(ptr);
+}
+
+void Ventas()
+{
+	int op;
+	do{
+		cout<<"			***VENTAS***		"<<endl;
+		cout<<" 1- Crear Archivo"<<endl;
+		cout<<" 2- Adicionar Venta"<<endl;
+		cout<<" 3- Mostrar Venta"<<endl;
+		cout<<" 0- Atras"<<endl;
+		cout<<"Eliga una opcion = "<<endl;
+		cin>>op;
+		switch (op){
+		case 1:
+			{
+				crearArch("ventas.dat");
+				cout<<"	Archivo Creado!";
+				break;
+			}
+		case 2:
+			{
+				cargarvent();
+				break;
+			}
+		case 3:
+			{
+				mostrarvent();
+				break;
+			}
+		case 69:
+			{
+				cout<<"================** pedro c la come ** ================";
+				break;
+			}
+		case 0:
+			{
+				break;
+			}
+		default: cout<<"	Opcion Invalida!";
+		}
+		getch();
+		system("cls");
+	} while (op!=0);
+	getch();
+}
+
+
+void reporteVentas()
+{
+	FILE*ptr;
+	regvent vent;
+	regprod prod;
+	int c=0,tot=0;
+	ptr=fopen("ventas.dat","rb");
+	if(ptr!=NULL)
+	{
+		cout<<"\n\n========================================================================";
+		cout<<"\n			** REPORTE TOTAL DE VENTAS **";
+		cout<<"\n------------------------------------------------------------------------";
+		cout<<"\n	NroRegsitro  IDventa   Fecha   Producto	 CantVend	 PrecUnit	 PrecTotal";
+		cout<<"\n------------------------------------------------------------------------";
+		fread(&vent,sizeof(vent),1,ptr);
+
+		while(feof(ptr)==false)
+		{
+			prod=obtprod(vent.IDprod);
+			cout<<c++<<"\t"<<vent.IDvent<<"\t"<<prod.nombre<<"\t"<<vent.cantidad<<"\t"<<prod.precio<<"\t"<<prod.precio*vent.cantidad<<"\n";
+			tot=tot+prod.precio*vent.cantidad;
+			fread(&vent,sizeof(vent),1,ptr);
+        }
+		cout<<"\tTOTAL: "<<tot;
+	}else{cout<<"EL ARCHIVO NO EXISTE!!";}
+	getch();
+	system("cls");
+	}
+		
+void main()
+{	
+	int op;
+	do{
+		cout<<"			***MENU***		"<<endl;
+		cout<<" 1- Productos"<<endl;
+		cout<<" 2- Ventas"<<endl;
+		cout<<" 3- Compras"<<endl;
+		cout<<" 4- Reporte de Ventas"<<endl;
+		cout<<" 0- Salir"<<endl;
+		cout<<"Eliga una opcion = "<<endl;
+		cin>>op;
+		switch (op){
+		case 1:
+			{
+				Productos();
+				break;
+			}
+		case 2:
+			{
+				Ventas();
+				break;
+			}
+		case 3:
+			{
+				Compras();
+				break;
+			}
+		case 4:
+			{
+				reporteVentas();
+				break;
+			}
+		case 69:
+			{
+				cout<<"================** pedro c la come ** ================";
+				break;
+			}
+		case 0:
+			{
+				cout<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<"			See ya!";
+				break;
+			}
+		default: cout<<"	Opcion Invalida!";
+		}
+		getch();
+		system("cls");
+	} while (op!=0);
+	getch();
+	
+}
